@@ -1,3 +1,7 @@
+:root {
+  --background-color: #f1f1f1;
+}
+
 /*Footer*/
 footer {
   background-color: #333;
@@ -37,7 +41,7 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f4f4f4;
+  background-color: var(--background-color);
 }
 .loginForm {
   width: 80%;
