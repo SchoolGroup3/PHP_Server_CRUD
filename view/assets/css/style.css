@@ -11,7 +11,10 @@ footer {
   position: fixed;
   width: 100%;
   bottom: 0;
+  display: flex;
+  justify-content: space-between;
 }
+
 /*Login / Signup*/
 * {
   margin: 0;
@@ -94,4 +97,24 @@ html {
 }
 .registerLink a:hover {
   text-decoration: underline;
+}
+
+/*Home Page*/
+.map {
+  padding-right: 2%;
+}
+
+.desc {
+  width: 25%;
+  padding-left: 1%;
+}
+
+p.copyright {
+  position: absolute;
+  width: 100%;
+  color: #fff;
+  line-height: 40px;
+  font-size: 0.7em;
+  text-align: center;
+  bottom: 0;
 }
