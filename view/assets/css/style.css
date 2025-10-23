@@ -46,10 +46,7 @@ html {
 .loginForm {
   width: 80%;
   max-width: 400px;
-  background: white;
   padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 .loginForm h2 {
   margin-bottom: 20px;
@@ -65,7 +62,7 @@ html {
   padding: 10px;
   margin-top: 5px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 15px;
 }
 .loginForm button {
   margin-top: 20px;
@@ -74,7 +71,7 @@ html {
   background-color: #222020;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 15px;
   cursor: pointer;
 }
 .loginForm button:hover {
