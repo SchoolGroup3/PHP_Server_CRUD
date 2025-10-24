@@ -20,16 +20,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   let users = await get_all_users();
 
-  users.forEach((user) => {
-    let row = adminTable.insertRow(1);
-    row.className = "adminTableData";
-    let username = row.insertCell(0);
-    let accountNum = row.insertCell(1);
-    let buttons = row.insertCell(2);
+  if (users) {
+    users.forEach((user) => {
+      let row = adminTable.insertRow(1);
+      row.className = "adminTableData";
+      row.id = `user${user["PROFILE_CODE"]}`;
+      let username = row.insertCell(0);
+      let accountNum = row.insertCell(1);
+      let buttons = row.insertCell(2);
 
-    username.innerHTML = user["USER_NAME"];
-    accountNum.innerHTML = user["CARD_NO"];
-    buttons.innerHTML = `<div class="center-flex-div">
+      username.innerHTML = user["USER_NAME"];
+      accountNum.innerHTML = user["CARD_NO"];
+      buttons.innerHTML = `<div class="center-flex-div">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -49,6 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                   viewBox="0 0 24 24"
                   fill="#ff5457"
                   class="size-small"
+                  onclick="delete_user(${user.PROFILE_CODE})" 
                 >
                   <path
                     fill-rule="evenodd"
@@ -57,13 +60,39 @@ document.addEventListener("DOMContentLoaded", async () => {
                   />
                 </svg>
               </div>`;
-  });
+    });
+  } else {
+    let row = adminTable.insertRow(1);
+    row.className = "adminTableData";
+    let username = row.insertCell(0);
+    let accountNum = row.insertCell(1);
+    let buttons = row.insertCell(2);
+
+    accountNum.innerHTML = "No users available.";
+  }
 });
 
 async function get_all_users() {
   const response = await fetch("../../api/GetAllUsers.php");
-  console.log("RESPONSE: ", response);
   const data = await response.json();
 
   return data["resultado"];
+}
+
+async function delete_user(id) {
+  if (!confirm("Are you sure you want to delete this user?")) return;
+
+  const response = await fetch(
+    `../../api/DeleteUser.php?id=${encodeURIComponent(id)}`
+  );
+
+  const data = await response.json();
+
+  if (data.error) {
+    console.log("Error deleting user: ", data.error);
+  } else {
+    console.log("User deleted.");
+    row = document.getElementById(`user${id}`);
+    if (row) row.remove();
+  }
 }

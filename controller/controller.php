@@ -27,5 +27,9 @@ class controller {
     public function modifyUser($gender, $card_no, $profile_code){
         return $this->UserModel->modifyUser($gender, $card_no, $profile_code);
     }
+
+    public function delete_user($id) {
+        return $this->UserModel->delete_user($id);
+    }
 }
 ?>

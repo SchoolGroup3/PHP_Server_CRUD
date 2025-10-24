@@ -25,7 +25,7 @@ class UserModel {
     }*/
 
     public function get_all_users() {
-        $query = "SELECT * FROM PROFILE_ AS P, USER_ AS U WHERE P.PROFILE_CODE = U.PROFILE_CODE;SELECT * FROM USER_";
+        $query = "SELECT * FROM PROFILE_ AS P, USER_ AS U WHERE P.PROFILE_CODE = U.PROFILE_CODE";
 
         $stmt = $this->conn->prepare($query);
 
@@ -33,6 +33,19 @@ class UserModel {
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
+    }
+
+    public function delete_user($id) {
+        $query = "DELETE U, P FROM USER_ U JOIN PROFILE_ P ON P.PROFILE_CODE = U.PROFILE_CODE WHERE U.PROFILE_CODE = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 }
 ?>
