@@ -52,12 +52,12 @@ class LibroModel {
         }
     }
 
-    public function modifyUser($gender, $card_no, ){
+    public function modifyUser($gender, $card_no, $profile_code){
         $query = "UPDATE USER_ SET GENDER   = ?, CARD_NO  = ? WHERE PROFILE_CODE = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt-> bindparam(1, $email);
-        $stmt-> bindparam(2, $email);
-        $stmt-> bindparam(3, $email);
+        $stmt-> bindparam(1, $gender);
+        $stmt-> bindparam(2, $card_no);
+        $stmt-> bindparam(3, $profile_code);
         $stmt-> execute();
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
