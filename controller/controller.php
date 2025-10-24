@@ -15,5 +15,13 @@ class controller {
     public function create_user($username, $pswd1, $pswd2) {
         return $this->UserBD->create_user($username, $pswd1, $pswd2);
     }
+
+    public function modifyProfile($email, $username, $phone, $firstName, $lastName, $profile_code) {
+        return $this->UserBD->buscarPorIsbn($$email, $username, $phone, $firstName, $lastName, $profile_code);
+    }
+
+    public function modifyUser($gender, $card_no, $profile_code){
+        return $this->UserBD->modifyUser($gender, $card_no, $profile_code);
+    }
 }
 ?>
