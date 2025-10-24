@@ -230,8 +230,14 @@ li {
 
 .adminTable {
   width: 100%;
+  display: block;
   max-height: 90%;
-  overflow-y: scroll;
+  overflow-y: auto;
+}
+
+.adminTableHead {
+  position: sticky;
+  top: 0;
 }
 
 .adminTable th {
@@ -266,6 +272,21 @@ li {
 
 .size-small {
   width: 10%;
+}
+
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.modifySelfButton {
+  width: 30%;
+  background-color: #101416;
+  font-weight: bold;
+  color: white;
+  border: 0px;
+  border-radius: 10px;
 }
 
 /* Profile Popup */

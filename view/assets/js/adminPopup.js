@@ -26,7 +26,7 @@ window.onclick = function (event) {
   }
 };
 
-for (let i = 0; i < 15; i++) {
+for (let i = 0; i < 30; i++) {
   let row = adminTable.insertRow(1);
   row.className = "adminTableData";
   let username = row.insertCell(0);
