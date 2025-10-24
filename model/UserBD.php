@@ -10,27 +10,21 @@ class LibroModel {
 
     public function create_user($username, $pswd1, $pswd2){
         $query = "CALL create_user(?,?)";
+        $query2 = "SELECT * FROM PROFILE_ WHERE USER_NAME = ?";
         $stmt = $this->conn->prepare($query)
+        $smt-> $this->conn->prepare($query2)
 
-        if($pswd1 === $pswd2){
+            $smt->bindParam(1, $username);
+            $smt->execute();
+            if($smt->rowCount() > 0){
+                echo "El usuario ya existe";
+            }else{
             $stmt-> bindparam(1, $username);
             $stmt-> bindparam(2, $pswd1);
             $stmt-> execute();
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            $exito = (bool)$result['exito'];
-            if($exito){
-                echo "Usuario creado con éxito";
-                header("Location: login.html");
-                exit();
-            }else{
-                echo "Error al crear el usuario";
             }
-        }else{
-            echo "Las contraseñas no coinciden";
-        }
-    }
 
 }
-
+}
 ?>
 
