@@ -1,89 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile</title>
-    <link rel="stylesheet" href="../assets/css/style.css" />
-  </head>
 
-  <body>
-    <div class="popupOverlay">
-      <div class="popupCard">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
 
-        <form class="loginForm profileForm">
-          <div class="profileHeader">
-            <div class="avatar">
-              <img src="https://placehold.co/280x280/png" alt="avatar" />
-            </div>
-            <div class="infoArea">
-              <div class="fields">
-                <div class="field half">
-                  <label for="firstName">Name</label>
-                  <input id="firstName" name="firstName" type="text" placeholder="John" />
-                </div>
-                <div class="field half">
-                  <label for="lastName">Surname</label>
-                  <input id="lastName" name="lastName" type="text" placeholder="Doe" />
-                </div>
-                <div class="field full">
-                  <label for="email">Email</label>
-                  <input id="email" name="email" type="email" placeholder="example@example.com" />
-                </div>
+<body>
+  <div class="popupOverlay">
+    <div class="popupCard">
+
+      <form class="loginForm profileForm">
+        <div class="profileHeader">
+          <div class="avatar">
+            <img src="https://placehold.co/280x280/png" alt="avatar" />
+          </div>
+          <div class="infoArea">
+            <div class="fields">
+              <div class="field half">
+                <label for="firstName">Name</label>
+                <input id="firstName" name="firstName" type="text" placeholder="John" />
+              </div>
+              <div class="field half">
+                <label for="lastName">Surname</label>
+                <input id="lastName" name="lastName" type="text" placeholder="Doe" />
+              </div>
+              <div class="field full">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="example@example.com" />
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="fields">
-            <div class="field half">
-              <label for="username">Username</label>
-              <input id="username" name="username" type="text" placeholder="Example" />
-            </div>
-            <div class="field half">
-              <label for="password">Password</label>
-              <div class="inline">
-                <div class="passwordWrap">
-                  <input id="password" name="password" type="password" placeholder="••••••••" />
-                  <button type="button" class="togglePwd" aria-label="Toggle password" id="togglePwd">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 5c-5 0-9 4.5-10 7 1 2.5 5 7 10 7s9-4.5 10-7c-1-2.5-5-7-10-7Z" stroke="#444" stroke-width="1.5"/>
-                      <circle cx="12" cy="12" r="3.5" stroke="#444" stroke-width="1.5"/>
-                    </svg>
-                  </button>
-                </div>
-                <button type="button" class="changePwdBtn">Change Password</button>
-              </div>
-            </div>
-            <div class="field half">
-              <label for="phone">Phone Number</label>
-              <input id="phone" name="phone" type="tel" placeholder="000-000-0000" />
-            </div>
-            <div class="field half">
-              <label for="profileCode">Profile Code</label>
-              <input id="profileCode" name="profileCode" type="text" placeholder="XXX-XXX" />
-            </div>
-            <div class="field full">
-              <label for="accountNumber">Account Number</label>
-              <input id="accountNumber" name="accountNumber" type="text" placeholder="XXXX-XXXX-XXXX-XXXX" />
-            </div>
+        <div class="fields">
+          <div class="field half">
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" placeholder="Example" />
           </div>
+          
+          <div class="field half">
+            <label for="password">Password</label>                        
+              <button type="button" class="changePwdBtn">Change Password</button>            
+          </div>
+          <div class="field half">
+            <label for="phone">Phone Number</label>
+            <input id="phone" name="phone" type="tel" placeholder="000-000-0000" />
+          </div>
+          <div class="field half">
+            <label for="mi_select">Genero</label>
+            <select name="mi_select" id="genre">
+              <option value="opcion1">Hombre</option>
+              <option value="opcion2">Muher</option>
+              <option value="opcion3">Otro</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="accountNumber">Account Number</label>
+            <input id="accountNumber" name="accountNumber" type="text" placeholder="XXXX-XXXX-XXXX-XXXX" />
+          </div>
+        </div>
 
-          <div class="actions">
-            <button class="saveBtn" type="submit">Save Data</button>
-          </div>
-        </form>
-        
-      </div>
+        <div class="actions">
+          <button class="saveBtn" type="submit">Save Data</button>
+        </div>
+      </form>
+
     </div>
+  </div>
 
-    <script>
-      const toggle = document.getElementById('togglePwd');
-      const pwd = document.getElementById('password');
-      if (toggle && pwd) {
-        toggle.addEventListener('click', () => {
-          pwd.type = pwd.type === 'password' ? 'text' : 'password';
-        });
-      }
-    </script>
-  </body>
+</body>
+
 </html>

@@ -8,10 +8,10 @@
     private $name_;
     private $surname;
 
-    public function __construct($profile_code, $email, $user_name) {
+    public function __construct($profile_code, $email, $user_name, $pswd, $telephone, $name_, $surname) {
         $this->profile_code = $profile_code;
         $this->email = $email;
-        $this->user_name = $autor;
+        $this->user_name = $user_name;
         $this->pswd = $pswd;
         $this->telephone = $telephone;
         $this->name_ = $name_;
