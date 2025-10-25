@@ -1,4 +1,4 @@
-document.getElementById("signupForm").addEventListener("onclick", function (e) {
+document.getElementById("signupForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
   const username = document.getElementById("username").value;
@@ -8,26 +8,27 @@ document.getElementById("signupForm").addEventListener("onclick", function (e) {
   if (pswd1 !== pswd2) {
     alert("Las contraseñas no coinciden.");
     return;
-  } else {
-    fetch("../../../api/AddUser.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, pswd1, pswd2 }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.exito) {
-          alert("Usuario creado con éxito.");
-          window.location.href = "login.html";
-        } else {
-          alert("Error al crear el usuario.");
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        alert("Hubo un problema con el servidor.");
-      });
   }
+  fetch("../../../api/AddUser.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username, pswd1, pswd2 }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.resultado) {
+        alert("Usuario creado con éxito.");
+        localStorage.setItem("usuario", JSON.stringify(data.resultado));
+        window.location.href = "main.html";
+      } else {
+        alert("Error al crear el usuario.");
+        console.error("Respuesta del servidor:", data);
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      alert("Hubo un problema con el servidor.");
+    });
 });
