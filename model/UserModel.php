@@ -47,6 +47,41 @@ class UserModel {
             return FALSE;
         }
     }
+
+    public function modifyUser($email, $username, $telephone, $name, $surname, $gender, $card_no, $profile_code){
+        $query = "UPDATE USER_ U JOIN PROFILE_ P ON U.PROFILE_CODE = P.PROFILE_CODE 
+        SET P.EMAIL = :email, P.USER_NAME = :username, P.TELEPHONE = :telephone, P.NAME_ = :name_, P.SURNAME = :surname, U.GENDER = :gender, U.CARD_NO = :card_no
+        WHERE P.PROFILE_CODE = :profile_code";
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt-> bindparam(':email', $email);
+        $stmt-> bindparam(':username', $username);
+        $stmt-> bindparam(':telephone', $telephone);
+        $stmt-> bindparam(':name_', $name);
+        $stmt-> bindparam(':surname', $surname);
+        $stmt-> bindparam(':gender', $gender);
+        $stmt-> bindparam(':card_no', $card_no);
+        $stmt-> bindparam(':profile_code', $profile_code);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    } 
+
+    public function modifyPassword($profile_code, $password){
+        $query = "UPDATE PROFILE_ SET PSWD = :password_ WHERE PROFILE_CODE = :profile_code";
+        $stmt = $this->conn->prepare($query);
+        $stmt-> bindparam(':profile_code', $profile_code);
+        $stmt-> bindparam(':password_', $password);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 ?>
 

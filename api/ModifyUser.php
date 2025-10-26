@@ -10,22 +10,18 @@ require_once '../controller/controller.php';
 $profile_code = $_GET['profile_code'] ?? '';
 $email = $_GET['email'] ?? '';
 $username = $_GET['username'] ?? '';
-$phone = $_GET['phone'] ?? '';
-$firstName = $_GET['firstName'] ?? '';
-$lastName = $_GET['lastName'] ?? '';
+$telephone = $_GET['telephone'] ?? '';
+$name = $_GET['name'] ?? '';
+$surname = $_GET['surname'] ?? '';
 $gender = $_GET['gender'] ?? '';
-$cardNumber = $_GET['cardNumber'] ?? '';
+$card_no = $_GET['card_no'] ?? '';
 
 $controller = new controller();
-$profile = $controller->modifyProfile($email, $username, $phone, $firstName, $lastName, $profile_code);
+$modify = $controller->modifyUser($email, $username, $telephone, $name, $surname, $gender, $card_no, $profile_code);
 
-if ($profile) {
-    echo json_encode([
-        'isbn' => $libro->getIsbn(),
-        'nombre' => $libro->getNombre(),
-        'autor' => $libro->getAutor()
-    ], JSON_UNESCAPED_UNICODE);
+if ($modify) {
+    echo json_encode(['success' => true, 'message' => 'User modified correctly']);
 } else {
-    echo json_encode(['error' => 'Libro no encontrado']);
+    echo json_encode(['success' => false, 'error' => 'Error modifying the user']);
 }
 ?>
