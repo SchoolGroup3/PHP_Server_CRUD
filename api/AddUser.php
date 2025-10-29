@@ -39,7 +39,7 @@ try {
 ?>
 
 
-ini_set('display_errors', 1);
+/*ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
@@ -73,4 +73,4 @@ if ($pswd1 === $pswd2) {
         'error' => 'Error del servidor: ' . $e->getMessage(),
         'exito' => false
     ]);
-}
+}*/
