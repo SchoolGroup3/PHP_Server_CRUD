@@ -9,7 +9,7 @@ class UserModel {
     }
 
     public function create_user($username, $pswd1, $pswd2){
-        $query = "CALL create_user(?,?)";
+        $query = "CALL RegistrarUsuario(?,?)";
         $query2 = "SELECT * FROM PROFILE_ WHERE USER_NAME = ?";
         $stmt = $this->conn->prepare($query);
         $smt = $this->conn->prepare($query2);
@@ -21,7 +21,7 @@ class UserModel {
         $stmt-> bindparam(1, $username);
         $stmt-> bindparam(2, $pswd1);
         $stmt-> execute();
-        $result = $stmt->fecht(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result;
         }
     }
