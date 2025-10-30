@@ -42,7 +42,7 @@ document.getElementById('changePasswordForm').addEventListener('submit', async f
     if (!hasErrors) {
         try {
             //POST to pass the password safely
-            const response = await fetch('/RETO_php/api/ModifyPassword.php', {
+            const response = await fetch('../../api/ModifyPassword.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
