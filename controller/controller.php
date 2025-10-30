@@ -12,8 +12,8 @@ class controller {
         $this->UserModel = new UserModel($db);
     }
 
-    public function create_user($username, $pswd1, $pswd2) {
-        return $this->UserModel->create_user($username, $pswd1, $pswd2);
+    public function create_user($username, $pswd1) {
+        return $this->UserModel->create_user($username, $pswd1);
     }
 
     public function get_all_users() {

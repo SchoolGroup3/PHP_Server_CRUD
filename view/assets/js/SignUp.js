@@ -73,16 +73,16 @@ document
 
       const rawText = await response.text();
       console.log("Texto recibido:", rawText); // Debug
+      console.log("Texto recibido (raw):", JSON.stringify(rawText));
 
       let data;
       try {
-        data = JSON.parse(rawText);
+        data = JSON.parse(response.ok ? rawText : "{}");
       } catch (jsonError) {
         throw new Error("Respuesta no es JSON válida: " + rawText);
       }
 
       console.log("Datos recibidos:", data); // Debug
-
       if (data.resultado) {
         alert("Usuario creado con éxito.");
         localStorage.setItem("usuario", JSON.stringify(data.resultado));
