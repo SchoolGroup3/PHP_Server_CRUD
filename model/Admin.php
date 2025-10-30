@@ -3,10 +3,16 @@ require_once 'Profile.php';
 
 class Admin extends Profile {
     private $currentAccount;
-    public function __construct($currentAccount) {
-        parent::__construct( $profile_code, $email, $username, $name, $password, $phonenumber, $gender, $cardnumber);
-        this ->currentAccount = $currentAccount;
-
+    public function __construct($profile_code,
+    $email,
+    $user_name,
+    $pswd,
+    $telephone,
+    $name_,
+    $surname,$currentAccount) {
+        parent::__construct($profile_code, $email, $user_name, $pswd,
+        $telephone, $name_, $surname);
+        $this ->currentAccount = $currentAccount;
     }
     
     public function getCurrentAccount() {
