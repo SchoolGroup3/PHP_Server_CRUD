@@ -8,21 +8,23 @@ class UserModel {
         $this->conn = $db;
     }
 
-    /*public function create_user($username, $pswd1, $pswd2){
-        $query = "CALL create_user(?,?)";
-        $query2 = "SELECT * FROM PROFILE_ WHERE USER_NAME = ?";
-        $stmt = $this->conn->prepare($query);
-        $smt = $this->conn->prepare($query2);
-        $smt->bindParam(1, $username);
-        $smt->execute();
-        if($smt->rowCount() > 0){
-            echo "El usuario ya existe";
-        }else{
-        $stmt-> bindparam(1, $username);
-        $stmt-> bindparam(2, $pswd1);
-        $stmt-> execute();
-        }
-    }*/
+    public function create_user($username, $pswd1) {
+    $checkQuery = "SELECT * FROM PROFILE_ WHERE USER_NAME = ?";
+    $checkStmt = $this->conn->prepare($checkQuery);
+    $checkStmt->bindValue(1, $username);
+    $checkStmt->execute();
+    if ($checkStmt->rowCount() > 0) {
+        return null;
+    }
+    $createQuery = "CALL RegistrarUsuario(?, ?)";
+    $createStmt = $this->conn->prepare($createQuery);
+    $createStmt->bindValue(1, $username);
+    $createStmt->bindValue(2, $pswd1);
+    $createStmt->execute();
+    $result = $createStmt->fetch(PDO::FETCH_ASSOC);
+    return $result;
+}
+
 
     public function get_all_users() {
         $query = "SELECT * FROM PROFILE_ AS P, USER_ AS U WHERE P.PROFILE_CODE = U.PROFILE_CODE";
