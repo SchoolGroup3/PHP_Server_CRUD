@@ -85,7 +85,7 @@ document
       console.log("Datos recibidos:", data); // Debug
       if (data.resultado) {
         alert("Usuario creado con éxito.");
-        localStorage.setItem("usuario", JSON.stringify(data.resultado));
+        localStorage.setItem("actualUser", JSON.stringify(data.resultado));
         window.location.href = "main.html";
       } else {
         alert("Error al crear el usuario.");
