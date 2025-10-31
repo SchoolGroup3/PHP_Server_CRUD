@@ -8,22 +8,58 @@ class UserModel {
         $this->conn = $db;
     }
 
+     public function loginUser($username, $password) {
+        $query = "SELECT * FROM PROFILE_ P JOIN USER_ U ON P.PROFILE_CODE = U.PROFILE_CODE
+        WHERE USER_NAME = :username AND PSWD = :pass";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":username", $username);
+        $stmt->bindParam(":pass", $password);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            return new User($result["PROFILE_CODE"], $result["EMAIL"], $result["USER_NAME"], $result["PSWD"],
+            $result["TELEPHONE"], $result["NAME_"], $result["SURNAME"], $result["GENDER"], $result["CARD_NO"]);
+        } else {
+            return null;
+        }
+     }
+
+    public function loginAdmin($username, $password) {
+        $query = " SELECT * FROM PROFILE_ P JOIN ADMIN_ A ON P.PROFILE_CODE=A.PROFILE_CODE
+        WHERE USER_NAME = :username AND PSWD = :pass";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":username", $username);
+        $stmt->bindParam(":pass", $password);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            return new Admin($result["PROFILE_CODE"], $result["EMAIL"], $result["USER_NAME"],
+            $result["PSWD"], $result["TELEPHONE"], $result["NAME_"], $result["SURNAME"], $result["CURRENT_ACCOUNT"]);
+        } else {
+            return null;
+        }
+     }
+  
     public function create_user($username, $pswd1) {
-    $checkQuery = "SELECT * FROM PROFILE_ WHERE USER_NAME = ?";
-    $checkStmt = $this->conn->prepare($checkQuery);
-    $checkStmt->bindValue(1, $username);
-    $checkStmt->execute();
-    if ($checkStmt->rowCount() > 0) {
-        return null;
+      $checkQuery = "SELECT * FROM PROFILE_ WHERE USER_NAME = ?";
+      $checkStmt = $this->conn->prepare($checkQuery);
+      $checkStmt->bindValue(1, $username);
+      $checkStmt->execute();
+      if ($checkStmt->rowCount() > 0) {
+          return null;
+      }
+      $createQuery = "CALL RegistrarUsuario(?, ?)";
+      $createStmt = $this->conn->prepare($createQuery);
+      $createStmt->bindValue(1, $username);
+      $createStmt->bindValue(2, $pswd1);
+      $createStmt->execute();
+      $result = $createStmt->fetch(PDO::FETCH_ASSOC);
+      return $result;
     }
-    $createQuery = "CALL RegistrarUsuario(?, ?)";
-    $createStmt = $this->conn->prepare($createQuery);
-    $createStmt->bindValue(1, $username);
-    $createStmt->bindValue(2, $pswd1);
-    $createStmt->execute();
-    $result = $createStmt->fetch(PDO::FETCH_ASSOC);
-    return $result;
-}
 
 
     public function get_all_users() {

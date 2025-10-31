@@ -12,6 +12,14 @@ class controller {
         $this->UserModel = new UserModel($db);
     }
 
+    public function loginUser($username, $password) {
+        return $this->UserModel->loginUser($username, $password);
+    }
+
+    public function loginAdmin($username, $password) {
+        return $this->UserModel->loginAdmin($username, $password);
+    }
+
     public function create_user($username, $pswd1) {
         return $this->UserModel->create_user($username, $pswd1);
     }
