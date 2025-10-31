@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
     localStorage.setItem('actualUser', JSON.stringify(usuario));
     console.log("usuario" + usuario);
     //actual profile with localStorage
-    const actualProfile = JSON.parse(localStorage.getItem('actualUser'));
+    const actualProfile = JSON.parse(localStorage.getItem('actualProfile'));
 
     document.getElementById("username").value = actualProfile.username;
     //if the profile has an atribute, it has them all, because are mandatory
@@ -115,6 +115,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
         console.log("Esto son los datos de los textfields" + profile_code, name, surname, email, username, telephone, gender, card_no);
 
         if (!name || !surname || !email || !username || !telephone || !gender || !card_no) {
+
             document.getElementById("message").innerHTML = "You must fill all the fields";
             document.getElementById("message").style.color = "red";
             return;
@@ -133,6 +134,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
         if (!hasChanges()) {
             document.getElementById("message").innerHTML = "No changes detected";
             document.getElementById("message").style.color = "red";
+
 
         } else {
 
