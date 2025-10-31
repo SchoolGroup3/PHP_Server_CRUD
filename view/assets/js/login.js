@@ -14,6 +14,7 @@ document
       });
 
       const data = await response.json();
+      console.log(data);
 
       if (data) {
         window.location.href = "main.html";
