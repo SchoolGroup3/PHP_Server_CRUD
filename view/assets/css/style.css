@@ -428,6 +428,7 @@ li {
 }
 
 .actions {
+  display: flex;
   margin-top: 22px;
 }
 
@@ -435,6 +436,14 @@ li {
   width: 100%;
   border-radius: 18px;
   padding: 14px;
+}
+
+.deleteBtn {
+  width: 50%;
+  border-radius: 18px;
+  padding: 14px;
+  background-color: #f0f0f0; 
+  border-color:1px #000;
 }
 
 #gender {
@@ -525,6 +534,7 @@ li {
     text-decoration: none;
     cursor: pointer;
   }
+
 
   @media (max-width: 780px) {
   .profileHeader {
