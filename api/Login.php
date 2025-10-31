@@ -19,9 +19,9 @@ if (is_null($user)) {
     if (is_null($user)) {
         echo json_encode(['error' => 'El nombre de usuario o contraseña son incorrectos.']);
     } else {
-        echo json_encode(['resultado' => $user], JSON_UNESCAPED_UNICODE);
+        echo json_encode(['resultado' => $user, 'type' => 'admin'], JSON_UNESCAPED_UNICODE);
     }
 } else {
-    echo json_encode(['resultado' => $user], JSON_UNESCAPED_UNICODE);
+    echo json_encode(['resultado' => $user, 'type' => 'user'], JSON_UNESCAPED_UNICODE);
 }
 ?>
