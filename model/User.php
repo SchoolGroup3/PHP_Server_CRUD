@@ -6,8 +6,9 @@ class User extends Profile {
     private $gender;
     private $cardNumber;
 
-    public function __construct($gender, $cardnumber) {
-        parent::__construct($profile_code, $email, $username, $name, $password, $phonenumber);
+    public function __construct($profile_code, $email, $user_name, $pswd, $telephone, $name_, $surname, $gender, $cardnumber) {
+        parent::__construct($profile_code, $email, $user_name, $pswd,
+         $telephone, $name_, $surname);
         $this->gender = $gender;
         $this->cardNumber = $cardnumber;
 }

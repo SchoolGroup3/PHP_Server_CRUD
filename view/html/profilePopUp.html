@@ -43,18 +43,18 @@
 
           <div class="field half">
             <label for="password">Password</label>                        
-              <button type="button" class="changePwdBtn">Change Password</button>            
+              <button type="button" id="changePwdBtn" class="changePwdBtn">Change Password</button>            
           </div>
           <div class="field half">
             <label for="phone">Phone Number</label>
             <input id="phone" name="phone" type="tel" placeholder="000-000-0000" />
           </div>
           <div class="field half">
-            <label for="mi_select">Gender</label>
-            <select name="mi_select" id="gender">
-              <option value="opcion1">Man</option>
-              <option value="opcion2">Woman</option>
-              <option value="opcion3">Other</option>
+            <label for="gender">Gender</label>
+            <select name="gender" id="gender">
+              <option value="Masculino">Man</option>
+              <option value="Femenino">Woman</option>
+              <option value="Otro">Other</option>
             </select>
           </div>
           <div class="field full">
@@ -62,15 +62,44 @@
             <input id="accountNumber" name="accountNumber" type="text" placeholder="XXXX-XXXX-XXXX-XXXX" />
           </div>
         </div>
-
+        <span style="color:green"; id="message"></span>
         <div class="actions">
-          <button class="saveBtn" type="submit">Save Data</button>
+          
+          <button id="deleteBtn" class="deleteBtn" type="submit">Delete Account</button>
+          <button class="saveBtn" type="submit">Save Data</button>         
         </div>
       </form>
 
     </div>
   </div>
 
+  <!-- Modal to change the password -->
+  <div id="changePasswordModal" class="changePasswordModal">
+        <div class="changePasswordModalContent">
+            <span class="closePasswordModal">&times;</span>
+            <h2>Change Password</h2>
+            <form id="changePasswordForm">
+                <label for="currentPassword">Actual Password</label>
+                <input type="password" id="currentPassword" name="currentPassword" required>
+                <span style="color:red"; id="messageOldPassword"></span>
+                
+                <label for="newPassword">New Password</label>
+                <input type="password" id="newPassword" name="newPassword" required>
+                
+                <label for="confirmNewPassword">Repeat Password</label>
+                <input type="password" id="confirmNewPassword" name="confirmNewPassword" required>
+                <span style="color:red"; id="messageWrongPassword"></span>
+                
+                <span style="color:green"; id="messageSuccessPassword"></span>
+                <button type="submit">Confirm</button>
+                
+            </form>
+            <div id="passwordMessage" class="passwordMessage"></div>
+        </div>
+    </div>
+
+  <script src="../assets/js/profilePopup.js"></script>
+  <script src="../assets/js/changePasswordPopup.js"></script>
 </body>
 
 </html>

@@ -12,6 +12,14 @@ class controller {
         $this->UserModel = new UserModel($db);
     }
 
+    public function loginUser($username, $password) {
+        return $this->UserModel->loginUser($username, $password);
+    }
+
+    public function loginAdmin($username, $password) {
+        return $this->UserModel->loginAdmin($username, $password);
+    }
+
     public function create_user($username, $pswd1) {
         return $this->UserModel->create_user($username, $pswd1);
     }
@@ -20,16 +28,16 @@ class controller {
         return $this->UserModel->get_all_users();
     }
 
-    public function modifyProfile($email, $username, $phone, $firstName, $lastName, $profile_code) {
-        return $this->UserModel->buscarPorIsbn($email, $username, $phone, $firstName, $lastName, $profile_code);
-    }
-
-    public function modifyUser($gender, $card_no, $profile_code){
-        return $this->UserModel->modifyUser($gender, $card_no, $profile_code);
+    public function modifyUser($email, $username, $telephone, $name, $surname, $gender, $card_no, $profile_code){
+        return $this->UserModel->modifyUser($email, $username, $telephone, $name, $surname, $gender, $card_no, $profile_code);
     }
 
     public function delete_user($id) {
         return $this->UserModel->delete_user($id);
+    }
+
+    public function modifyPassword($profile_code, $password) {
+        return $this->UserModel->modifyPassword($profile_code, $password);
     }
 }
 ?>
