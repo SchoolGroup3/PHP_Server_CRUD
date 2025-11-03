@@ -111,6 +111,9 @@ html {
 .registerLink a:hover {
   text-decoration: underline;
 }
+#mensaje { 
+text-align: center;
+}
 
 /*Home Page*/
 .topPic {
