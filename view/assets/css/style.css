@@ -111,8 +111,8 @@ html {
 .registerLink a:hover {
   text-decoration: underline;
 }
-#mensaje { 
-text-align: center;
+#mensaje {
+  text-align: center;
 }
 
 /*Home Page*/
@@ -207,25 +207,38 @@ li {
 /*Modal*/
 .adminTableModal {
   display: none;
-  /* Hidden by default */
   position: fixed;
-  /* Stay in place */
   z-index: 1;
-  /* Sit on top */
   padding-top: 100px;
-  /* Location of the box */
   left: 0;
   top: 0;
   width: 100%;
-  /* Full width */
   height: 100%;
-  /* Full height */
   overflow: auto;
-  /* Enable scroll if needed */
   background-color: rgb(0, 0, 0);
-  /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4);
-  /* Black w/ opacity */
+}
+
+.modifyUserPopupAdmin {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 999;
+}
+
+.modifyAdminPopup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 999;
 }
 
 /* Modal Content */
@@ -290,7 +303,7 @@ li {
   justify-content: center;
 }
 
-.center-flex-div>* {
+.center-flex-div > * {
   margin-left: 5px;
   margin-right: 5px;
   cursor: pointer;
@@ -445,101 +458,100 @@ li {
   width: 50%;
   border-radius: 18px;
   padding: 14px;
-  background-color: #f0f0f0; 
-  border-color:1px #000;
+  background-color: #f0f0f0;
+  border-color: 1px #000;
 }
 
 #gender {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 15px;
-    background-color: white;
-    font-family: "Segoe UI", sans-serif;
-    font-size: 14px;
-    cursor: pointer;
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  background-color: white;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 14px;
+  cursor: pointer;
 }
 
-  /*Change Password pop up*/
-  .changePasswordModal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-  }
+/*Change Password pop up*/
+.changePasswordModal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
 
-  .changePasswordModalContent {
-    background-color: var(--background-color, #f1f1f1);
-    margin: 5% auto;
-    padding: 24px;
-    border: 4px black solid;
-    border-radius: 18px;
-    width: 90%;
-    max-width: 500px;
-    position: relative;
-  }
+.changePasswordModalContent {
+  background-color: var(--background-color, #f1f1f1);
+  margin: 5% auto;
+  padding: 24px;
+  border: 4px black solid;
+  border-radius: 18px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+}
 
-  .changePasswordModal h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.8rem;
-  }
+.changePasswordModal h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
 
-  .changePasswordModal label {
-    display: block;
-    margin-top: 15px;
-    font-weight: bold;
-  }
+.changePasswordModal label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}
 
-  .changePasswordModal input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 15px;
-  }
+.changePasswordModal input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+}
 
-  .changePasswordModal button {
-    margin-top: 20px;
-    width: 100%;
-    padding: 10px;
-    background-color: #101416;
-    color: white;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    font-weight: bold;
-  }
+.changePasswordModal button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+  background-color: #101416;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
 
-  .changePasswordModal button:hover {
-    background-color: #4d4a4a;
-    transition-duration: 0.5s;
-  }
+.changePasswordModal button:hover {
+  background-color: #4d4a4a;
+  transition-duration: 0.5s;
+}
 
-  .closePasswordModal {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    position: absolute;
-    right: 15px;
-    top: 10px;
-  }
+.closePasswordModal {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  right: 15px;
+  top: 10px;
+}
 
-  .closePasswordModal:hover,
-  .closePasswordModal:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-  }
+.closePasswordModal:hover,
+.closePasswordModal:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
 
-
-  @media (max-width: 780px) {
+@media (max-width: 780px) {
   .profileHeader {
     flex-direction: column;
     align-items: flex-start;

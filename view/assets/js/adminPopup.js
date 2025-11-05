@@ -1,20 +1,31 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  var modal = document.getElementById("adminTableModal");
-  var btn = document.getElementById("myBtn");
-  var span = document.getElementsByClassName("close")[0];
-  var adminTable = document.getElementById("adminTable");
+  let adminTableModal = document.getElementById("adminTableModal");
+  let modifyUserPopup = document.getElementById("modifyUserPopupAdmin");
+  let modifyAdminPopup = document.getElementById("modifyAdminPopup");
+  let homeBtn = document.getElementById("homeBtn");
+  let modifyAdminBtn = document.getElementById("modifySelfButton");
+  let span = document.getElementsByClassName("close")[0];
+  let adminTable = document.getElementById("adminTable");
 
-  btn.onclick = function () {
-    modal.style.display = "block";
+  homeBtn.onclick = function () {
+    adminTableModal.style.display = "block";
+  };
+
+  modifyAdminBtn.onclick = function () {
+    modifyAdminPopup.style.display = "flex";
   };
 
   span.onclick = function () {
-    modal.style.display = "none";
+    adminTableModal.style.display = "none";
   };
 
   window.onclick = function (event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
+    if (event.target == adminTableModal) {
+      adminTableModal.style.display = "none";
+    } else if (event.target == modifyUserPopup) {
+      modifyUserPopup.style.display = "none";
+    } else if (event.target == modifyAdminPopup) {
+      modifyAdminPopup.style.display = "none";
     }
   };
 
@@ -37,6 +48,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                   viewBox="0 0 24 24"
                   fill="currentColor"
                   class="size-small"
+                  onclick='openModifyUserPopup(${JSON.stringify(user)})'
                 >
                   <path
                     d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z"
@@ -95,4 +107,10 @@ async function delete_user(id) {
     row = document.getElementById(`user${id}`);
     if (row) row.remove();
   }
+}
+
+function openModifyUserPopup() {
+  let modifyUserPopup = document.getElementById("modifyUserPopupAdmin");
+  console.log("Modify clicked.");
+  modifyUserPopup.style.display = "flex";
 }
