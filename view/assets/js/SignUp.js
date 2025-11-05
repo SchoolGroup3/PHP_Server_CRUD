@@ -15,7 +15,7 @@ document
       return;
     }
 
-    //console.log("Enviando datos:", { username, pswd1, pswd2 }); // Debug
+   // console.log("Enviando datos:", { username, pswd1, pswd2 }); // Debug
 
     try {
       const response = await fetch("../../api/AddUser.php", {
@@ -27,7 +27,7 @@ document
       });
 
       const rawText = await response.text();
-     // console.log("Texto recibido:", rawText); // Debug
+     //console.log("Texto recibido:", rawText); // Debug
       //console.log("Texto recibido (raw):", JSON.stringify(rawText));
 
       let data;
@@ -53,7 +53,7 @@ document
     } catch (error) {
       //console.error("Error completo:", error); // Debug
       //alert("Hubo un problema con el servidor.");
-      parrafo.innerText="Hubo un problema con el servidor.";
+      parrafo.innerText="El Usuario ya existe, elija otro nombre de usuario";
       parrafo.style.color="red";
     }
   });
