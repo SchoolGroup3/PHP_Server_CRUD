@@ -22,9 +22,9 @@ if (is_null($user)) {
     if (is_null($user)) {
         echo json_encode(["error" => 'El nombre de usuario o contraseña son incorrectos.'], JSON_UNESCAPED_UNICODE);
     } else {
-        echo json_encode(["resultado" => $user], JSON_FORCE_OBJECT);
+        echo json_encode(["resultado" => $user], JSON_UNESCAPED_UNICODE);
     }
 } else {
-    echo json_encode(["resultado" => $user], JSON_FORCE_OBJECT);
+    echo json_encode(["resultado" => $user], JSON_UNESCAPED_UNICODE);
 }
 ?>
