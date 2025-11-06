@@ -3,6 +3,9 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+ini_set('log_errors', 1);
+ini_set('error_log', 'php_error.log');
+
 header("Content-Type: application/json");
 
 require_once '../controller/controller.php';
@@ -17,11 +20,11 @@ $user = $controller->loginUser($username, $password);
 if (is_null($user)) {
     $user = $controller->loginAdmin($username, $password);
     if (is_null($user)) {
-        echo json_encode(['error' => 'El nombre de usuario o contraseña son incorrectos.']);
+        echo json_encode(["error" => 'El nombre de usuario o contraseña son incorrectos.'], JSON_UNESCAPED_UNICODE);
     } else {
-        echo json_encode(['resultado' => $user, 'type' => 'admin'], JSON_UNESCAPED_UNICODE);
+        echo json_encode(["resultado" => $user], JSON_FORCE_OBJECT);
     }
 } else {
-    echo json_encode(['resultado' => $user, 'type' => 'user'], JSON_UNESCAPED_UNICODE);
+    echo json_encode(["resultado" => $user], JSON_FORCE_OBJECT);
 }
 ?>
