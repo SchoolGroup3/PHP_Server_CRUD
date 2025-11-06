@@ -43,7 +43,8 @@ document
         parrafo.innerText = "Usuario creado con éxito.";
         parrafo.style.color = "green";
         let user = JSON.stringify(data.resultado);
-        localStorage.setItem("usuario", user);
+        let userObj = JSON.parse(user);
+        localStorage.setItem("ActualUser", userObj);
         window.location.href = "main.html";
       } else {
         //alert("Error al crear el usuario.");
