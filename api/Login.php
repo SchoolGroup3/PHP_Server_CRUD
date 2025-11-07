@@ -19,7 +19,7 @@ $user = $controller->loginUser($username, $password);
 
 if (is_null($user)) {
     $admin = $controller->loginAdmin($username, $password);
-    if (is_null($user)) {
+    if (is_null($admin)) {
         echo json_encode(["error" => 'El nombre de usuario o contraseña son incorrectos.'], JSON_UNESCAPED_UNICODE);
     } else {
         echo json_encode(["resultado" => $admin], JSON_UNESCAPED_UNICODE);

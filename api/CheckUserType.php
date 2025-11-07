@@ -19,7 +19,7 @@ $user = $controller->loginUser($username, $password);
 
 if (is_null($user)) {
     $admin = $controller->loginAdmin($username, $password);
-    if (is_null($user)) {
+    if (is_null($admin)) {
         echo json_encode(["error" => "Method nope'd."], JSON_UNESCAPED_UNICODE);
     } else {
         echo json_encode(["type" => "admin"], JSON_UNESCAPED_UNICODE);
