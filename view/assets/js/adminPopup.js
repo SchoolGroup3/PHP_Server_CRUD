@@ -142,5 +142,6 @@ function openModifyUserPopup(user) {
 }
 
 function openModifyAdminPopup() {
+  let modifyAdminPopup = document.getElementById("modifyAdminPopup");
   modifyAdminPopup.style.display = "flex";
 }

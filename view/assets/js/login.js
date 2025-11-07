@@ -16,7 +16,7 @@ document
           let string = JSON.stringify(data["resultado"]);
           let user = JSON.parse(string);
           console.log(user);
-          localStorage.setItem("profile", user);
+          localStorage.setItem("profile", string);
           window.location.href = "main.html";
         }
       }
