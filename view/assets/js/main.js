@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const profile = localStorage.getItem("profile");
+  const profile = JSON.parse(localStorage.getItem("actualUser"));
   console.log(profile);
 
   document
@@ -7,22 +7,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     .addEventListener("click", async function (e) {
       e.preventDefault();
 
-      const username = profile.username;
-      const password = profile.password;
-      console.log(username);
-      console.log(password);
+      const username = profile.USER_NAME;
+      const password = profile.PSWD;
 
       let data = await login(username, password);
       console.log(data);
 
-      if (data) {
-        if ((data["type"] = "admin")) {
-          console.log("Admin");
-        } else if ((data["type"] = "user")) {
-          console.log("User");
-        }
+      if (data["admin"]) {
+        console.log("Admin");
+      } else if (data["user"]) {
+        console.log("User");
       } else {
-        console.log("Error al cargar JSON.");
+        console.log(data["error"]);
       }
     });
 });
