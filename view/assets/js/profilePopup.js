@@ -1,23 +1,23 @@
 document.addEventListener("DOMContentLoaded", function (e) {
   e.preventDefault();
 
-  /* const usuario = {
-    profile_code: "1",
-    password: "123456",
-    email: "usuario@ejemplo.com",
-    username: "juan_perez",
-    telephone: "34 612 345 678",
-    name: "Juan",
-    surname: "Pérez García",
-    gender: "Femenino",
-    card_no: "1234 5678 9012 3456",
-  };*/
-
   //localStorage.setItem('actualUser', JSON.stringify(usuario));
   //console.log("usuario" + usuario);
   //actual profile with localStorage
   const actualProfile = JSON.parse(localStorage.getItem("actualUser"));
   console.log("Actual Profile:", actualProfile);
+  const usuario = {
+    profile_code: actualProfile.PROFILE_CODE,
+    password: actualProfile.PSWD,
+    email: actualProfile.EMAIL,
+    username: actualProfile.USER_NAME,
+    telephone: actualProfile.TELEPHONE,
+    name: actualProfile.NAME_,
+    surname: actualProfile.SURNAME,
+    gender: actualProfile.GENDER,
+    card_no: actualProfile.CARD_NO,
+  };
+  console.log("Actual user:", usuario);
 
   document.getElementById("username").value = actualProfile.username;
   //if the profile has an atribute, it has them all, because are mandatory

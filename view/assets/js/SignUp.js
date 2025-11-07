@@ -43,7 +43,7 @@ document
         parrafo.innerText = "Usuario creado con éxito.";
         parrafo.style.color = "green";
         localStorage.setItem("actualUser", JSON.stringify(data.resultado));
-        window.location.href = "main.html";
+        window.location.href = "profilePopUp.html";
         console.log("Datos recibidos:", data.resultado);
       } else {
         //alert("Error al crear el usuario.");
