@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   modifyAdminBtn.onclick = function () {
-    modifyAdminPopup.style.display = "flex";
+    openModifyAdminPopup();
   };
 
   span.onclick = function () {
@@ -109,8 +109,38 @@ async function delete_user(id) {
   }
 }
 
-function openModifyUserPopup() {
+function openModifyUserPopup(user) {
+  localStorage.setItem("actualUser", JSON.stringify(user));
+  const actualProfile = JSON.parse(localStorage.getItem("actualUser"));
+  console.log("Actual Profile:", actualProfile);
+  const usuario = {
+    profile_code: actualProfile.PROFILE_CODE,
+    password: actualProfile.PSWD,
+    email: actualProfile.EMAIL,
+    username: actualProfile.USER_NAME,
+    telephone: actualProfile.TELEPHONE,
+    name: actualProfile.NAME_,
+    surname: actualProfile.SURNAME,
+    gender: actualProfile.GENDER,
+    card_no: actualProfile.CARD_NO,
+  };
+  console.log("Actual user:", usuario);
+
+  document.getElementById("username").value = usuario.username;
+  //if the profile has an atribute, it has them all, because are mandatory
+  if (usuario.email) {
+    document.getElementById("email").value = usuario.email;
+    document.getElementById("phone").value = usuario.telephone;
+    document.getElementById("firstName").value = usuario.name;
+    document.getElementById("lastName").value = usuario.surname;
+    document.getElementById("gender").value = usuario.gender;
+    document.getElementById("cardNumber").value = usuario.card_no;
+  }
+
   let modifyUserPopup = document.getElementById("modifyUserPopupAdmin");
-  console.log("Modify clicked.");
   modifyUserPopup.style.display = "flex";
+}
+
+function openModifyAdminPopup() {
+  modifyAdminPopup.style.display = "flex";
 }
