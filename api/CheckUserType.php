@@ -20,11 +20,11 @@ $user = $controller->loginUser($username, $password);
 if (is_null($user)) {
     $admin = $controller->loginAdmin($username, $password);
     if (is_null($user)) {
-        echo json_encode(["error" => 'El nombre de usuario o contraseña son incorrectos.'], JSON_UNESCAPED_UNICODE);
+        echo json_encode(["error" => "Method nope'd."], JSON_UNESCAPED_UNICODE);
     } else {
-        echo json_encode(["resultado" => $admin], JSON_UNESCAPED_UNICODE);
+        echo json_encode(["type" => "admin"], JSON_UNESCAPED_UNICODE);
     }
 } else {
-    echo json_encode(["resultado" => $user], JSON_UNESCAPED_UNICODE);
+    echo json_encode(["type" => "user"], JSON_UNESCAPED_UNICODE);
 }
 ?>

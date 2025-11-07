@@ -30,17 +30,7 @@ class UserModel
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($result) {
-            return new User(
-                $result["PROFILE_CODE"],
-                $result["EMAIL"],
-                $result["USER_NAME"],
-                $result["PSWD"],
-                $result["TELEPHONE"],
-                $result["NAME_"],
-                $result["SURNAME"],
-                $result["GENDER"],
-                $result["CARD_NO"]
-            );
+            return $result;
         } else {
             return null;
         }
@@ -58,16 +48,7 @@ class UserModel
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($result) {
-            return new Admin(
-                $result["PROFILE_CODE"],
-                $result["EMAIL"],
-                $result["USER_NAME"],
-                $result["PSWD"],
-                $result["TELEPHONE"],
-                $result["NAME_"],
-                $result["SURNAME"],
-                $result["CURRENT_ACCOUNT"]
-            );
+            return $result;
         } else {
             return null;
         }

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const profile = JSON.parse(localStorage.getItem("Profile"));
+  const profile = localStorage.getItem("profile");
   console.log(profile);
 
   document
@@ -9,24 +9,34 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const username = profile.username;
       const password = profile.password;
-      try {
-        const response = await fetch(`../../api/Login.php`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username, password }),
-        });
+      console.log(username);
+      console.log(password);
 
-        const data = await response.json();
+      let data = await login(username, password);
+      console.log(data);
 
-        if ((data.type = "admin")) {
+      if (data) {
+        if ((data["type"] = "admin")) {
           console.log("Admin");
-        } else if ((data.type = "user")) {
+        } else if ((data["type"] = "user")) {
           console.log("User");
         }
-      } catch (error) {
-        console.log(error);
+      } else {
+        console.log("Error al cargar JSON.");
       }
     });
 });
+
+async function login(username, password) {
+  const response = await fetch(`../../api/CheckUserType.php`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username, password }),
+  });
+
+  let data = await response.json();
+
+  return data;
+}
