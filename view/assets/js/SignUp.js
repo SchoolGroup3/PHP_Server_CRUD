@@ -42,10 +42,9 @@ document
         //alert("Usuario creado con éxito.");
         parrafo.innerText = "Usuario creado con éxito.";
         parrafo.style.color = "green";
-        let user = JSON.stringify(data.resultado);
-        let userObj = JSON.parse(user);
-        localStorage.setItem("ActualUser", userObj);
+        localStorage.setItem("actualUser", JSON.stringify(data.resultado));
         window.location.href = "main.html";
+        console.log("Datos recibidos:", data.resultado);
       } else {
         //alert("Error al crear el usuario.");
         parrafo.innerText =
@@ -54,7 +53,7 @@ document
         console.error("Respuesta del servidor:", data);
       }
     } catch (error) {
-      console.error("Error completo:", error); // Debug
+      //console.error("Error completo:", error); // Debug
       //alert("Hubo un problema con el servidor.");
       parrafo.innerText = "Error al crear el usuario.";
       parrafo.style.color = "red";
