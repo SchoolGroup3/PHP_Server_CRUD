@@ -14,7 +14,9 @@ document
       } else {
         if (data["resultado"]) {
           let string = JSON.stringify(data["resultado"]);
-          localStorage.setItem("actualUser", string);
+          let user = JSON.parse(string);
+          console.log(user);
+          localStorage.setItem("profile", string);
           window.location.href = "main.html";
         }
       }
