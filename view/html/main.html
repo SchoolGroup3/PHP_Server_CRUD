@@ -244,6 +244,44 @@
           </form>
         </div>
       </div>
+
+      <div id="changePasswordModal" class="changePasswordModal">
+        <div class="changePasswordModalContent">
+          <span class="closePasswordModal">&times;</span>
+          <h2>Change Password</h2>
+          <form id="changePasswordForm">
+            <label for="currentPassword">Actual Password</label>
+            <input
+              type="password"
+              id="currentPassword"
+              name="currentPassword"
+              required
+            />
+            <span style="color: red" ; id="messageOldPassword"></span>
+
+            <label for="newPassword">New Password</label>
+            <input
+              type="password"
+              id="newPassword"
+              name="newPassword"
+              required
+            />
+
+            <label for="confirmNewPassword">Repeat Password</label>
+            <input
+              type="password"
+              id="confirmNewPassword"
+              name="confirmNewPassword"
+              required
+            />
+            <span style="color: red" ; id="messageWrongPassword"></span>
+
+            <span style="color: green" ; id="messageSuccessPassword"></span>
+            <button type="submit">Confirm</button>
+          </form>
+          <div id="passwordMessage" class="passwordMessage"></div>
+        </div>
+      </div>
     </main>
     <footer>
       <!--Logo goes here-->

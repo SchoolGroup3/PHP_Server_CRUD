@@ -2,12 +2,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   const profile = JSON.parse(localStorage.getItem("profile"));
 
   let adminTableModal = document.getElementById("adminTableModal");
+  let changePwdModal = document.getElementById("changePasswordModal");
   let modifyUserPopup = document.getElementById("modifyUserPopupAdmin");
   let modifyAdminPopup = document.getElementById("modifyAdminPopup");
   let homeBtn = document.getElementById("adjustData");
   let modifyAdminBtn = document.getElementById("modifySelfButton");
   let deleteBtn = document.getElementById("deleteBtn");
   let saveBtnUser = document.getElementById("saveBtnUser");
+  let changePwdBtn = document.getElementById("changePwdBtn");
   let span = document.getElementsByClassName("close")[0];
   let adminTable = document.getElementById("adminTable");
 
@@ -31,6 +33,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   saveBtnUser.onclick = function () {
     modifyUser();
   };
+
+  changePwdBtn.onclick = function () {
+    changePwdModal.style.display = "block";
+    resetPasswordModal();
+  };
+
+  function resetPasswordModal() {
+    document.getElementById("changePasswordForm").reset();
+    document.getElementById("messageOldPassword").innerHTML = "";
+    document.getElementById("messageWrongPassword").innerHTML = "";
+    document.getElementById("message").innerHTML = "";
+  }
 
   span.onclick = function () {
     adminTableModal.style.display = "none";
@@ -99,6 +113,82 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     accountNum.innerHTML = "No users available.";
   }
+
+  document
+    .getElementById("changePasswordForm")
+    .addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      document.getElementById("messageOldPassword").innerHTML = "";
+      document.getElementById("messageWrongPassword").innerHTML = "";
+      document.getElementById("message").innerHTML = "";
+
+      //actual profile with localStorage
+      const actualProfile = JSON.parse(localStorage.getItem("actualUser"));
+
+      const profile_code = actualProfile["PROFILE_CODE"];
+      const userPassword = actualProfile["PSWD"];
+      const password = document.getElementById("currentPassword").value;
+      const newPassword = document.getElementById("newPassword").value;
+      const confirmPassword =
+        document.getElementById("confirmNewPassword").value;
+
+      let hasErrors = false;
+
+      if (userPassword != password) {
+        document.getElementById("messageOldPassword").innerHTML =
+          "That is not your current password";
+        hasErrors = true;
+      }
+
+      if (userPassword == newPassword) {
+        document.getElementById("messageWrongPassword").innerHTML =
+          "Password used before, try annother one";
+        hasErrors = true;
+      }
+
+      if (newPassword != confirmPassword) {
+        document.getElementById("messageWrongPassword").innerHTML =
+          "The passwords are not the same";
+        hasErrors = true;
+      }
+
+      if (!hasErrors) {
+        try {
+          //POST to pass the password safely
+          const response = await fetch("../../api/ModifyPassword.php", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              profile_code: profile_code,
+              password: newPassword,
+            }),
+          });
+
+          const data = await response.json();
+
+          if (data.success) {
+            actualProfile.password = newPassword;
+            document.getElementById("messageSuccessPassword").innerHTML =
+              "Password correctly changed";
+
+            setTimeout(() => {
+              document.getElementById("messageSuccessPassword").innerHTML = ""; // clean the modified message
+              document.getElementById("changePasswordForm").reset(); // clean all the fields
+            }, 3000);
+          } else {
+            document.getElementById("messageSuccessPassword").innerHTML =
+              data.error;
+            document.getElementById("messageSuccessPassword").style.color =
+              "red";
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    });
 });
 
 async function get_all_users() {
