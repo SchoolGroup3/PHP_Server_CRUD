@@ -66,7 +66,7 @@
                   <div class="field half">
                     <label for="firstName">Name</label>
                     <input
-                      id="firstName"
+                      id="firstNameUser"
                       name="firstName"
                       type="text"
                       placeholder="John"
@@ -75,7 +75,7 @@
                   <div class="field half">
                     <label for="lastName">Surname</label>
                     <input
-                      id="lastName"
+                      id="lastNameUser"
                       name="lastName"
                       type="text"
                       placeholder="Doe"
@@ -84,7 +84,7 @@
                   <div class="field full">
                     <label for="email">Email</label>
                     <input
-                      id="email"
+                      id="emailUser"
                       name="email"
                       type="email"
                       placeholder="example@example.com"
@@ -98,7 +98,7 @@
               <div class="field half">
                 <label for="username">Username</label>
                 <input
-                  id="username"
+                  id="usernameUser"
                   name="username"
                   type="text"
                   placeholder="Example"
@@ -114,15 +114,15 @@
               <div class="field half">
                 <label for="phone">Phone Number</label>
                 <input
-                  id="phone"
+                  id="phoneUser"
                   name="phone"
-                  type="tel"
+                  type="number"
                   placeholder="000-000-0000"
                 />
               </div>
               <div class="field half">
                 <label for="gender">Gender</label>
-                <select name="gender" id="gender">
+                <select name="gender" id="genderUser" class="gender">
                   <option value="Man">Man</option>
                   <option value="Female">Woman</option>
                   <option value="Other">Other</option>
@@ -131,7 +131,7 @@
               <div class="field full">
                 <label for="cardNumber">Card Number</label>
                 <input
-                  id="cardNumber"
+                  id="cardNumberUser"
                   name="cardNumber"
                   type="text"
                   placeholder="XXXX-XXXX-XXXX-XXXX"
@@ -143,7 +143,9 @@
               <button id="deleteBtn" class="deleteBtn" type="button">
                 Delete Account
               </button>
-              <button class="saveBtn" type="button">Save Data</button>
+              <button class="saveBtn" type="button" id="saveBtnUser">
+                Save Data
+              </button>
             </div>
           </form>
         </div>
@@ -211,7 +213,7 @@
                 <input
                   id="phoneAdmin"
                   name="phone"
-                  type="tel"
+                  type="number"
                   placeholder="000-000-0000"
                 />
               </div>
@@ -237,7 +239,7 @@
             </div>
             <span style="color: green" ; id="message"></span>
             <div class="actions">
-              <button class="saveBtn" type="button">Save Data</button>
+              <button class="saveBtnAdmin" type="button">Save Data</button>
             </div>
           </form>
         </div>

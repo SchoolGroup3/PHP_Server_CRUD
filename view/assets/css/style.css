@@ -520,7 +520,7 @@ li {
   border-color: 1px #000;
 }
 
-#gender {
+.gender {
   width: 100%;
   padding: 10px;
   margin-top: 5px;

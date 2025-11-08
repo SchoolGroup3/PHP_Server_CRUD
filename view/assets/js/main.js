@@ -7,13 +7,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   let homeBtn = document.getElementById("adjustData");
   let modifyAdminBtn = document.getElementById("modifySelfButton");
   let deleteBtn = document.getElementById("deleteBtn");
+  let saveBtnUser = document.getElementById("saveBtnUser");
   let span = document.getElementsByClassName("close")[0];
   let adminTable = document.getElementById("adminTable");
 
   homeBtn.onclick = function () {
-    if (profile["CARD_NO"]) {
+    console.log(profile);
+    if (["CARD_NO"] in profile) {
       openModifyUserPopup(profile);
-    } else if (profile["CURRENT_ACCOUNT"]) {
+    } else if (["CURRENT_ACCOUNT"] in profile) {
       adminTableModal.style.display = "block";
     }
   };
@@ -24,6 +26,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   deleteBtn.onclick = function () {
     delete_user_user(profile["PROFILE_CODE"]);
+  };
+
+  saveBtnUser.onclick = function () {
+    modifyUser();
   };
 
   span.onclick = function () {
@@ -137,6 +143,7 @@ async function delete_user_user(id) {
 }
 
 function openModifyUserPopup(user) {
+  console.log("Users clicked home button");
   localStorage.setItem("actualUser", JSON.stringify(user));
   const actualProfile = JSON.parse(localStorage.getItem("actualUser"));
   console.log("Actual Profile:", actualProfile);
@@ -153,15 +160,15 @@ function openModifyUserPopup(user) {
   };
   console.log("Actual user:", usuario);
 
-  document.getElementById("username").value = usuario.username;
+  document.getElementById("usernameUser").value = usuario.username;
   //if the profile has an atribute, it has them all, because are mandatory
   if (usuario.email) {
-    document.getElementById("email").value = usuario.email;
-    document.getElementById("phone").value = usuario.telephone;
-    document.getElementById("firstName").value = usuario.name;
-    document.getElementById("lastName").value = usuario.surname;
-    document.getElementById("gender").value = usuario.gender;
-    document.getElementById("cardNumber").value = usuario.card_no;
+    document.getElementById("emailUser").value = usuario.email;
+    document.getElementById("phoneUser").value = usuario.telephone;
+    document.getElementById("firstNameUser").value = usuario.name;
+    document.getElementById("lastNameUser").value = usuario.surname;
+    document.getElementById("genderUser").value = usuario.gender;
+    document.getElementById("cardNumberUser").value = usuario.card_no;
   }
 
   let modifyUserPopup = document.getElementById("modifyUserPopupAdmin");
@@ -195,4 +202,108 @@ function openModifyAdminPopup() {
   document.getElementById("accountNumberAdmin").value = usuario.current_account;
 
   modifyAdminPopup.style.display = "flex";
+}
+
+async function modifyUser() {
+  const actualProfile = JSON.parse(localStorage.getItem("actualUser"));
+  console.log("Actual Profile:", actualProfile);
+  const usuario = {
+    profile_code: actualProfile.PROFILE_CODE,
+    password: actualProfile.PSWD,
+    email: actualProfile.EMAIL,
+    username: actualProfile.USER_NAME,
+    telephone: actualProfile.TELEPHONE,
+    name: actualProfile.NAME_,
+    surname: actualProfile.SURNAME,
+    gender: actualProfile.GENDER,
+    card_no: actualProfile.CARD_NO,
+  };
+  console.log("Actual user:", usuario);
+
+  const profile_code = usuario.profile_code;
+  const name = document.getElementById("firstNameUser").value;
+  const surname = document.getElementById("lastNameUser").value;
+  const email = document.getElementById("emailUser").value;
+  const username = document.getElementById("usernameUser").value;
+  const telephone = document
+    .getElementById("phoneUser")
+    .value.replace(/\s/g, ""); //remove spaces
+  const gender = document.getElementById("genderUser").value;
+  const card_no = document.getElementById("cardNumberUser").value;
+  console.log(
+    "Esto son los datos de los textfields" + profile_code,
+    name,
+    surname,
+    email,
+    username,
+    telephone,
+    gender,
+    card_no
+  );
+
+  if (
+    !name ||
+    !surname ||
+    !email ||
+    !username ||
+    !telephone ||
+    !gender ||
+    !card_no
+  ) {
+    document.getElementById("message").innerHTML =
+      "You must fill all the fields";
+    document.getElementById("message").style.color = "red";
+    return;
+  }
+
+  //verify if there are changes in the fields
+  function hasChanges() {
+    let changes = false;
+
+    if (
+      name !== usuario.name ||
+      surname !== usuario.surname ||
+      email !== usuario.email ||
+      username !== usuario.username ||
+      telephone !== usuario.telephone ||
+      gender !== usuario.gender ||
+      card_no !== usuario.card_no
+    ) {
+      changes = true;
+    }
+    return changes;
+  }
+
+  if (!hasChanges()) {
+    document.getElementById("message").innerHTML = "No changes detected";
+    document.getElementById("message").style.color = "red";
+  } else {
+    try {
+      const response = await fetch(
+        `../../api/ModifyUser.php?profile_code=${encodeURIComponent(
+          profile_code
+        )}&name=${encodeURIComponent(name)}&surname=${encodeURIComponent(
+          surname
+        )}&email=${encodeURIComponent(email)}&username=${encodeURIComponent(
+          username
+        )}&telephone=${encodeURIComponent(
+          telephone
+        )}&gender=${encodeURIComponent(gender)}&card_no=${encodeURIComponent(
+          card_no
+        )}`
+      );
+      const data = await response.json();
+      console.log("El jason" + data);
+
+      if (data.success) {
+        document.getElementById("message").innerHTML = data.message;
+        document.getElementById("message").style.color = "green";
+      } else {
+        document.getElementById("message").innerHTML = data.error;
+        document.getElementById("message").style.color = "red";
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
