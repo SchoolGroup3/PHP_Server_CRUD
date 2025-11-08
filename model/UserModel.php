@@ -54,6 +54,36 @@ class UserModel
         }
     }
 
+    public function checkUser($username, $password)
+    {
+        $query = "SELECT * FROM PROFILE_ P JOIN USER_ U ON P.PROFILE_CODE = U.PROFILE_CODE
+        WHERE USER_NAME = :username AND PSWD = :pass";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":username", $username);
+        $stmt->bindParam(":pass", $password);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            return false;
+        } else {
+            $query = " SELECT * FROM PROFILE_ P JOIN ADMIN_ A ON P.PROFILE_CODE=A.PROFILE_CODE
+        WHERE USER_NAME = :username AND PSWD = :pass";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":username", $username);
+            $stmt->bindParam(":pass", $password);
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($result) {
+                return true;
+            }
+        }
+        return "There was an error when processing the profile.";
+    }
+
     public function create_user($username, $pswd1)
     {
         $checkQuery = "SELECT * FROM PROFILE_ WHERE USER_NAME = ?";

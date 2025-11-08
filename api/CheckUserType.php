@@ -15,16 +15,12 @@ $username = $data['username'] ?? '';
 $password = $data['password'] ?? '';
 
 $controller = new controller();
-$user = $controller->loginUser($username, $password);
-
-if (is_null($user)) {
-    $admin = $controller->loginAdmin($username, $password);
-    if (is_null($admin)) {
-        echo json_encode(["error" => "Method nope'd."], JSON_UNESCAPED_UNICODE);
-    } else {
-        echo json_encode(["type" => "admin"], JSON_UNESCAPED_UNICODE);
-    }
+$type = $controller->checkUser($username, $password);
+if ($type) {
+    echo json_encode(["admin" => "admin"], JSON_UNESCAPED_UNICODE);
+} else if (!$type) {
+    echo json_encode(["user" => "user"], JSON_UNESCAPED_UNICODE);
 } else {
-    echo json_encode(["type" => "user"], JSON_UNESCAPED_UNICODE);
+    echo json_encode(["error" => 'There was an error when processing the profile.'], JSON_UNESCAPED_UNICODE);
 }
 ?>
