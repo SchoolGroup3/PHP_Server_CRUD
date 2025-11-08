@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home Page</title>
     <link rel="stylesheet" href="../assets/css/style.css" />
+    <script src="../assets/js/main.js"></script>
   </head>
   <body>
     <header>
@@ -139,7 +140,10 @@
             </div>
             <span style="color: green" ; id="message"></span>
             <div class="actions">
-              <button class="saveBtn" type="submit">Save Data</button>
+              <button id="deleteBtn" class="deleteBtn" type="button">
+                Delete Account
+              </button>
+              <button class="saveBtn" type="button">Save Data</button>
             </div>
           </form>
         </div>
@@ -233,10 +237,7 @@
             </div>
             <span style="color: green" ; id="message"></span>
             <div class="actions">
-              <button id="deleteBtn" class="deleteBtn" type="submit">
-                Delete Account
-              </button>
-              <button class="saveBtn" type="submit">Save Data</button>
+              <button class="saveBtn" type="button">Save Data</button>
             </div>
           </form>
         </div>
@@ -277,6 +278,5 @@
       </div>
       <p class="copyright">© 2025 [PH]. Todos los derechos reservados</p>
     </footer>
-    <script src="../assets/js/main.js"></script>
   </body>
 </html>

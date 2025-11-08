@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   let modifyAdminPopup = document.getElementById("modifyAdminPopup");
   let homeBtn = document.getElementById("adjustData");
   let modifyAdminBtn = document.getElementById("modifySelfButton");
+  let deleteBtn = document.getElementById("deleteBtn");
   let span = document.getElementsByClassName("close")[0];
   let adminTable = document.getElementById("adminTable");
 
@@ -19,6 +20,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   modifyAdminBtn.onclick = function () {
     openModifyAdminPopup();
+  };
+
+  deleteBtn.onclick = function () {
+    delete_user_user(profile["PROFILE_CODE"]);
   };
 
   span.onclick = function () {
@@ -69,7 +74,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                   viewBox="0 0 24 24"
                   fill="#ff5457"
                   class="size-small"
-                  onclick="delete_user(${user.PROFILE_CODE})" 
+                  onclick="delete_user_admin(${user.PROFILE_CODE})" 
                 >
                   <path
                     fill-rule="evenodd"
@@ -97,7 +102,7 @@ async function get_all_users() {
   return data["resultado"];
 }
 
-async function delete_user(id) {
+async function delete_user_admin(id) {
   if (!confirm("Are you sure you want to delete this user?")) return;
 
   const response = await fetch(
@@ -112,6 +117,22 @@ async function delete_user(id) {
     console.log("User deleted.");
     row = document.getElementById(`user${id}`);
     if (row) row.remove();
+  }
+}
+
+async function delete_user_user(id) {
+  if (!confirm("Are you sure you want to your account?")) return;
+
+  const response = await fetch(
+    `../../api/DeleteUser.php?id=${encodeURIComponent(id)}`
+  );
+
+  const data = await response.json();
+
+  if (data.error) {
+    console.log("Error deleting user: ", data.error);
+  } else {
+    window.location.href = "login.html";
   }
 }
 

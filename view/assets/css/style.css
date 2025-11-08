@@ -209,6 +209,7 @@ html {
   background-color: #ffffff;
   border-style: solid;
   border-color: #000;
+  cursor: pointer;
 }
 
 .adjustData:hover {
@@ -222,6 +223,7 @@ html {
   background-color: #101416;
   color: white;
   border: none;
+  cursor: pointer;
 }
 
 .checkUsOut:hover {
