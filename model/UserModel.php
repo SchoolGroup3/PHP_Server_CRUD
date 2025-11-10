@@ -152,6 +152,28 @@ class UserModel
         }
     }
 
+    public function modifyAdmin($email, $username, $telephone, $name, $surname, $current_account, $profile_code)
+    {
+        $query = "UPDATE ADMIN_ A JOIN PROFILE_ P ON A.PROFILE_CODE = P.PROFILE_CODE 
+        SET P.EMAIL = :email, P.USER_NAME = :username, P.TELEPHONE = :telephone, P.NAME_ = :name_, P.SURNAME = :surname, A.CURRENT_ACCOUNT = :current_account
+        WHERE P.PROFILE_CODE = :profile_code";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindparam(':email', $email);
+        $stmt->bindparam(':username', $username);
+        $stmt->bindparam(':telephone', $telephone);
+        $stmt->bindparam(':name_', $name);
+        $stmt->bindparam(':surname', $surname);
+        $stmt->bindparam(':current_account', $current_account);
+        $stmt->bindparam(':profile_code', $profile_code);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function modifyPassword($profile_code, $password)
     {
         $query = "UPDATE PROFILE_ SET PSWD = :password_ WHERE PROFILE_CODE = :profile_code";

@@ -44,6 +44,11 @@ class controller
         return $this->UserModel->modifyUser($email, $username, $telephone, $name, $surname, $gender, $card_no, $profile_code);
     }
 
+    public function modifyAdmin($email, $username, $telephone, $name, $surname, $current_account, $profile_code)
+    {
+        return $this->UserModel->modifyAdmin($email, $username, $telephone, $name, $surname, $current_account, $profile_code);
+    }
+
     public function delete_user($id)
     {
         return $this->UserModel->delete_user($id);

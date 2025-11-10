@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const modifyAdminBtn = document.getElementById("modifySelfButton");
   const deleteBtn = document.getElementById("deleteBtn");
   const saveBtnUser = document.getElementById("saveBtnUser");
+  const saveBtnAdmin = document.getElementById("saveBtnAdmin");
   const changePwdBtn = document.getElementById("changePwdBtn");
   const changePwdBtnAdmin = document.getElementById("changePwdBtnAdmin");
   const closeAdminSpan = document.getElementsByClassName("close")[0];
@@ -16,7 +17,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementsByClassName("closePasswordSpan")[0];
 
   homeBtn.onclick = function () {
-    console.log("Profile before method: ", profile);
     if (["CARD_NO"] in profile) {
       localStorage.setItem("actualUser", JSON.stringify(profile));
       openModifyUserPopup(profile);
@@ -35,6 +35,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   saveBtnUser.onclick = function () {
     modifyUser();
+  };
+
+  saveBtnAdmin.onclick = function () {
+    modifyAdmin();
   };
 
   changePwdBtn.onclick = function () {
@@ -69,6 +73,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       modifyUserPopup.style.display = "none";
     } else if (event.target == modifyAdminPopup) {
       modifyAdminPopup.style.display = "none";
+    } else if (event.target == changePwdModal) {
+      changePwdModal.style.display = "none";
     }
   };
 
@@ -152,14 +158,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     .getElementById("changePasswordForm")
     .addEventListener("submit", async function (e) {
       e.preventDefault();
-      console.log("RESETTING PASSWORD");
 
       document.getElementById("messageOldPassword").innerHTML = "";
       document.getElementById("messageWrongPassword").innerHTML = "";
       document.getElementById("message").innerHTML = "";
 
       const actualProfile = JSON.parse(localStorage.getItem("actualUser"));
-      console.log("Actual Profile: ", actualProfile);
 
       const profile_code = actualProfile["PROFILE_CODE"];
       const userPassword = actualProfile["PSWD"];
@@ -322,14 +326,14 @@ function openModifyAdminPopup() {
   document.getElementById("firstNameAdmin").value = usuario.name;
   document.getElementById("lastNameAdmin").value = usuario.surname;
   document.getElementById("profileCodeAdmin").value = usuario.profile_code;
-  document.getElementById("accountNumberAdmin").value = usuario.current_account;
+  document.getElementById("currentAccountAdmin").value =
+    usuario.current_account;
 
   modifyAdminPopup.style.display = "flex";
 }
 
 async function modifyUser() {
   const actualProfile = JSON.parse(localStorage.getItem("actualUser"));
-  console.log("Actual Profile During Modify:", actualProfile);
 
   const usuario = {
     profile_code: actualProfile.PROFILE_CODE,
@@ -342,7 +346,6 @@ async function modifyUser() {
     gender: actualProfile.GENDER,
     card_no: actualProfile.CARD_NO,
   };
-  console.log("Actual user:", usuario);
 
   const profile_code = usuario.profile_code;
   const name = document.getElementById("firstNameUser").value;
@@ -428,6 +431,122 @@ async function modifyUser() {
       } else {
         document.getElementById("message").innerHTML = data.error;
         document.getElementById("message").style.color = "red";
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+async function modifyAdmin() {
+  const actualProfile = JSON.parse(localStorage.getItem("actualProfile"));
+
+  const usuario = {
+    profile_code: actualProfile.PROFILE_CODE,
+    password: actualProfile.PSWD,
+    email: actualProfile.EMAIL,
+    username: actualProfile.USER_NAME,
+    telephone: actualProfile.TELEPHONE,
+    name: actualProfile.NAME_,
+    surname: actualProfile.SURNAME,
+    current_account: actualProfile.CURRENT_ACCOUNT,
+  };
+
+  const profile_code = usuario.profile_code;
+  const name = document.getElementById("firstNameAdmin").value;
+  const surname = document.getElementById("lastNameAdmin").value;
+  const email = document.getElementById("emailAdmin").value;
+  const username = document.getElementById("usernameAdmin").value;
+  const telephone = document
+    .getElementById("phoneAdmin")
+    .value.replace(/\s/g, ""); //remove spaces
+  const current_account = document.getElementById("currentAccountAdmin").value;
+
+  console.log(
+    "Esto son los datos de los textfields" + profile_code,
+    name,
+    surname,
+    email,
+    username,
+    telephone,
+    current_account
+  );
+
+  if (
+    !name ||
+    !surname ||
+    !email ||
+    !username ||
+    !telephone ||
+    !current_account
+  ) {
+    document.getElementById("message").innerHTML =
+      "You must fill all the fields";
+    document.getElementById("message").style.color = "red";
+    return;
+  }
+
+  //verify if there are changes in the fields
+  function hasChanges() {
+    let changes = false;
+
+    if (
+      name !== usuario.name ||
+      surname !== usuario.surname ||
+      email !== usuario.email ||
+      username !== usuario.username ||
+      telephone !== usuario.telephone ||
+      current_account !== usuario.current_account
+    ) {
+      changes = true;
+    }
+    return changes;
+  }
+
+  if (!hasChanges()) {
+    document.getElementById("message").innerHTML = "No changes detected";
+    document.getElementById("message").style.color = "red";
+  } else {
+    try {
+      const response = await fetch(
+        `../../api/ModifyAdmin.php?profile_code=${encodeURIComponent(
+          profile_code
+        )}&name=${encodeURIComponent(name)}&surname=${encodeURIComponent(
+          surname
+        )}&email=${encodeURIComponent(email)}&username=${encodeURIComponent(
+          username
+        )}&telephone=${encodeURIComponent(
+          telephone
+        )}&current_account=${encodeURIComponent(current_account)}`
+      );
+
+      const data = await response.json();
+      console.log(data);
+
+      if (data.success) {
+        document.getElementById("messageAdmin").innerHTML = data.message;
+        document.getElementById("messageAdmin").style.color = "green";
+
+        actualProfile.NAME_ = name;
+        actualProfile.SURNAME = surname;
+        actualProfile.EMAIL = email;
+        actualProfile.USER_NAME = username;
+        actualProfile.TELEPHONE = telephone;
+        actualProfile.CURRENT_ACCOUNT = current_account;
+
+        console.log("Actual Profile Name: ", actualProfile.NAME_);
+
+        console.log("New actual profile:", JSON.stringify(actualProfile));
+
+        localStorage.setItem("actualProfile", JSON.stringify(actualProfile));
+
+        console.log(
+          "Local storage updated: ",
+          localStorage.getItem("actualProfile")
+        );
+      } else {
+        document.getElementById("messageAdmin").innerHTML = data.error;
+        document.getElementById("messageAdmin").style.color = "red";
       }
     } catch (error) {
       console.log(error);
