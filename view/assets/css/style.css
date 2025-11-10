@@ -592,8 +592,9 @@ li {
   transition-duration: 0.5s;
 }
 
-.closePasswordModal {
+.closePasswordSpan {
   color: #aaaaaa;
+  cursor: pointer;
   float: right;
   font-size: 28px;
   font-weight: bold;
