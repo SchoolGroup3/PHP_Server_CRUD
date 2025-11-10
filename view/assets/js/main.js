@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const profile = JSON.parse(localStorage.getItem("actualProfile"));
+  let profile = JSON.parse(localStorage.getItem("actualProfile"));
 
   const adminTableModal = document.getElementById("adminTableModal");
   const changePwdModal = document.getElementById("changePasswordModal");
@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   homeBtn.onclick = function () {
     if (["CARD_NO"] in profile) {
+      profile = JSON.parse(localStorage.getItem("actualProfile"));
       localStorage.setItem("actualUser", JSON.stringify(profile));
       openModifyUserPopup(profile);
     } else if (["CURRENT_ACCOUNT"] in profile) {
@@ -271,8 +272,6 @@ async function delete_user_user(id) {
 }
 
 function openModifyUserPopup(actualProfile) {
-  console.log("Users clicked home button");
-  console.log("Actual Profile Opening Popup:", actualProfile);
   localStorage.setItem("actualUser", JSON.stringify(actualProfile));
 
   const usuario = {
@@ -286,7 +285,6 @@ function openModifyUserPopup(actualProfile) {
     gender: actualProfile.GENDER,
     card_no: actualProfile.CARD_NO,
   };
-  console.log("Actual user:", usuario);
 
   document.getElementById("usernameUser").value = usuario.username;
   //if the profile has an atribute, it has them all, because all are mandatory
@@ -427,7 +425,24 @@ async function modifyUser() {
         document.getElementById("message").innerHTML = data.message;
         document.getElementById("message").style.color = "green";
 
-        refreshAdminTable();
+        actualProfile.NAME_ = name;
+        actualProfile.SURNAME = surname;
+        actualProfile.EMAIL = email;
+        actualProfile.USER_NAME = username;
+        actualProfile.TELEPHONE = telephone;
+        actualProfile.CARD_NO = card_no;
+        actualProfile.GENDER = gender;
+
+        localStorage.setItem("actualUser", JSON.stringify(actualProfile));
+
+        if (
+          ["CURRENT_ACCOUNT"] in
+          JSON.parse(localStorage.getItem("actualProfile"))
+        ) {
+          refreshAdminTable();
+        } else {
+          localStorage.setItem("actualProfile", JSON.stringify(actualProfile));
+        }
       } else {
         document.getElementById("message").innerHTML = data.error;
         document.getElementById("message").style.color = "red";
@@ -533,8 +548,6 @@ async function modifyAdmin() {
         actualProfile.USER_NAME = username;
         actualProfile.TELEPHONE = telephone;
         actualProfile.CURRENT_ACCOUNT = current_account;
-
-        console.log("Actual Profile Name: ", actualProfile.NAME_);
 
         console.log("New actual profile:", JSON.stringify(actualProfile));
 
