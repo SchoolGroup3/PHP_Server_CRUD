@@ -9,13 +9,10 @@ document
     const parrafo = document.getElementById("mensaje");
 
     if (pswd1 !== pswd2) {
-      //alert("Las contraseñas no coinciden.");
       parrafo.innerText = "Las contraseñas no coinciden.";
       parrafo.style.color = "red";
       return;
     }
-
-    // console.log("Enviando datos:", { username, pswd1, pswd2 }); // Debug
 
     try {
       const response = await fetch("../../api/AddUser.php", {
@@ -27,8 +24,6 @@ document
       });
 
       const rawText = await response.text();
-      //console.log("Texto recibido:", rawText); // Debug
-      //console.log("Texto recibido (raw):", JSON.stringify(rawText));
 
       let data;
       try {
@@ -37,24 +32,19 @@ document
         throw new Error("Respuesta no es JSON válida: " + rawText);
       }
 
-      //console.log("Datos recibidos:", data); // Debug
       if (data.resultado) {
-        //alert("Usuario creado con éxito.");
         parrafo.innerText = "Usuario creado con éxito.";
         parrafo.style.color = "green";
-        localStorage.setItem("actualUser", JSON.stringify(data.resultado));
+        localStorage.setItem("actualProfile", JSON.stringify(data.resultado));
         window.location.href = "main.html";
         console.log("Datos recibidos:", data.resultado);
       } else {
-        //alert("Error al crear el usuario.");
         parrafo.innerText =
           "El Usuario ya existe, elija otro nombre de usuario";
         parrafo.style.color = "red";
         console.error("Respuesta del servidor:", data);
       }
     } catch (error) {
-      //console.error("Error completo:", error); // Debug
-      //alert("Hubo un problema con el servidor.");
       parrafo.innerText = "Error al crear el usuario.";
       parrafo.style.color = "red";
     }
