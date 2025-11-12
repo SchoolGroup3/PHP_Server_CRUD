@@ -169,7 +169,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               "red";
           }
         } catch (error) {
-          console.log(error);
+          //DEBUG console.log(error);
         }
       }
     });
@@ -237,7 +237,7 @@ async function modifyUser() {
   const gender = document.getElementById("genderUser").value;
   const card_no = document.getElementById("cardNumberUser").value;
 
-  console.log(
+  /*DEBUG console.log(
     "Esto son los datos de los textfields" + profile_code,
     name,
     surname,
@@ -246,7 +246,7 @@ async function modifyUser() {
     telephone,
     gender,
     card_no
-  );
+  );*/
 
   if (
     !name ||
@@ -300,7 +300,7 @@ async function modifyUser() {
         )}`
       );
       const data = await response.json();
-      console.log(data);
+      //DEBUG console.log(data);
 
       if (data.success) {
         document.getElementById("message").innerHTML = data.message;
@@ -329,7 +329,7 @@ async function modifyUser() {
         document.getElementById("message").style.color = "red";
       }
     } catch (error) {
-      console.log(error);
+      //DEBUG console.log(error);
     }
   }
 }
@@ -352,9 +352,9 @@ async function delete_user_admin(id) {
   const data = await response.json();
 
   if (data.error) {
-    console.log("Error deleting user: ", data.error);
+    //DEBUG console.log("Error deleting user: ", data.error);
   } else {
-    console.log("User deleted.");
+    //DEBUG console.log("User deleted.");
     row = document.getElementById(`user${id}`);
     if (row) row.remove();
   }
@@ -440,7 +440,7 @@ function openModifyAdminPopup() {
     current_account: actualProfile.CURRENT_ACCOUNT,
   };
 
-  console.log("User username: ", usuario.username);
+  //DEBUG console.log("User username: ", usuario.username);
 
   document.getElementById("usernameAdmin").value = usuario.username;
   document.getElementById("emailAdmin").value = usuario.email;
@@ -478,7 +478,7 @@ async function modifyAdmin() {
     .value.replace(/\s/g, ""); //remove spaces
   const current_account = document.getElementById("currentAccountAdmin").value;
 
-  console.log(
+  /*DEBUG console.log(
     "Esto son los datos de los textfields" + profile_code,
     name,
     surname,
@@ -486,7 +486,7 @@ async function modifyAdmin() {
     username,
     telephone,
     current_account
-  );
+  );*/
 
   if (
     !name ||
@@ -537,7 +537,7 @@ async function modifyAdmin() {
       );
 
       const data = await response.json();
-      console.log(data);
+      //DEBUG console.log(data);
 
       if (data.success) {
         document.getElementById("messageAdmin").innerHTML = data.message;
@@ -550,20 +550,20 @@ async function modifyAdmin() {
         actualProfile.TELEPHONE = telephone;
         actualProfile.CURRENT_ACCOUNT = current_account;
 
-        console.log("New actual profile:", JSON.stringify(actualProfile));
+        //DEBUG console.log("New actual profile:", JSON.stringify(actualProfile));
 
         localStorage.setItem("actualProfile", JSON.stringify(actualProfile));
 
-        console.log(
+        /*DEBUG console.log(
           "Local storage updated: ",
           localStorage.getItem("actualProfile")
-        );
+        );*/
       } else {
         document.getElementById("messageAdmin").innerHTML = data.error;
         document.getElementById("messageAdmin").style.color = "red";
       }
     } catch (error) {
-      console.log(error);
+      //DEBUG console.log(error);
     }
   }
 }
@@ -586,7 +586,7 @@ async function delete_user(id) {
   const data = await response.json();
 
   if (data.error) {
-    console.log("Error deleting user: ", data.error);
+    //DEBUG console.log("Error deleting user: ", data.error);
   } else {
     window.location.href = "login.html";
   }
