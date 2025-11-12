@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   homeBtn.onclick = function () {
     if (["CARD_NO"] in profile) {
       profile = JSON.parse(localStorage.getItem("actualProfile"));
-      localStorage.setItem("actualUser", JSON.stringify(profile));
+      document.getElementById("message").innerHTML = "";
       openModifyUserPopup(profile);
     } else if (["CURRENT_ACCOUNT"] in profile) {
       refreshAdminTable();
@@ -109,7 +109,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       document.getElementById("messageWrongPassword").innerHTML = "";
       document.getElementById("message").innerHTML = "";
 
-      const actualProfile = JSON.parse(localStorage.getItem("actualProfile"));
+      let actualProfile;
+
+      if (["CARD_NO"] in profile) {
+        actualProfile = JSON.parse(localStorage.getItem("actualUser"));
+      } else if (["CURRENT_ACCOUNT"] in profile) {
+        actualProfile = JSON.parse(localStorage.getItem("actualProfile"));
+      }
 
       const profile_code = actualProfile["PROFILE_CODE"];
       const userPassword = actualProfile["PSWD"];
@@ -124,11 +130,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("messageOldPassword").innerHTML =
           "That is not your current password";
         hasErrors = true;
+        console.log("CURRENT PASSWORD: ", userPassword);
+        console.log("INPUT: ", password);
       }
 
       if (userPassword == newPassword) {
         document.getElementById("messageWrongPassword").innerHTML =
-          "Password used before, try annother one";
+          "Password used before, try another one";
         hasErrors = true;
       }
 
@@ -154,9 +162,19 @@ document.addEventListener("DOMContentLoaded", async () => {
           const data = await response.json();
 
           if (data.success) {
-            actualProfile.password = newPassword;
+            actualProfile.PSWD = newPassword;
             document.getElementById("messageSuccessPassword").innerHTML =
               "Password correctly changed";
+            if (["CARD_NO"] in profile) {
+              console.log("IS A USER");
+              localStorage.setItem("actualUser", JSON.stringify(actualProfile));
+            } else if (["CURRENT_ACCOUNT"] in profile) {
+              console.log("IS AN ADMIN");
+              localStorage.setItem(
+                "actualProfile",
+                JSON.stringify(actualProfile)
+              );
+            }
 
             setTimeout(() => {
               document.getElementById("messageSuccessPassword").innerHTML = ""; // clean the modified message
@@ -181,6 +199,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 /* ----------HOME---------- */
 function openModifyUserPopup(actualProfile) {
+  document.getElementById("message").innerHTML = "";
   localStorage.setItem("actualUser", JSON.stringify(actualProfile));
 
   const usuario = {
@@ -426,6 +445,7 @@ async function refreshAdminTable() {
 }
 
 function openModifyAdminPopup() {
+  document.getElementById("messageAdmin").innerHTML = "";
   const actualProfile = JSON.parse(localStorage.getItem("actualProfile"));
   let modifyAdminPopup = document.getElementById("modifyAdminPopup");
 
@@ -496,9 +516,9 @@ async function modifyAdmin() {
     !telephone ||
     !current_account
   ) {
-    document.getElementById("message").innerHTML =
+    document.getElementById("messageAdmin").innerHTML =
       "You must fill all the fields";
-    document.getElementById("message").style.color = "red";
+    document.getElementById("messageAdmin").style.color = "red";
     return;
   }
 
@@ -520,8 +540,8 @@ async function modifyAdmin() {
   }
 
   if (!hasChanges()) {
-    document.getElementById("message").innerHTML = "No changes detected";
-    document.getElementById("message").style.color = "red";
+    document.getElementById("messageAdmin").innerHTML = "No changes detected";
+    document.getElementById("messageAdmin").style.color = "red";
   } else {
     try {
       const response = await fetch(
