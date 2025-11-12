@@ -14,7 +14,8 @@ footer {
 }
 
 .logoutIcon {
-  width: 3%;
+  width: 4%;
+  text-decoration: none;
   cursor: pointer;
 }
 
