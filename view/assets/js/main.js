@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const closeAdminSpan = document.getElementsByClassName("close")[0];
   const closePasswordSpan =
     document.getElementsByClassName("closePasswordSpan")[0];
+  const logoutBtn = document.getElementById("logoutIcon");
 
   homeBtn.onclick = function () {
     if (["CARD_NO"] in profile) {
@@ -25,6 +26,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       adminTableModal.style.display = "block";
       deleteBtn.style.display = "none";
     }
+  };
+
+  //href wasnt working in the html so added here
+  logoutBtn.onclick = function () {
+    localStorage.removeItem("actualProfile");
+    localStorage.removeItem("actualUser");
+    window.location.href = "login.html";
   };
 
   modifyAdminBtn.onclick = function () {
